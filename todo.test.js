@@ -56,5 +56,17 @@ describe("TodoApp (versi console)", () => {
     app.deleteTask(0);
     expect(app.tasks.length).toBe(1);
   });
-  
+
+  test("Toggle twice returns to not finished", () => {
+    app.addTask("Repeat");
+    app.toggleTask(1); // becomes done
+    app.toggleTask(1); // becomes not done
+    expect(app.findById(1).done).toBe(false);
+  });
+
+  test("Delete non-existent id does nothing", () => {
+    app.addTask("Learn OOP");
+    app.deleteTask(2); // id 2 doesn't exist
+    expect(app.tasks.length).toBe(1);
+  });
 });

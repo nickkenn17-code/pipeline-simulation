@@ -31,11 +31,15 @@ class TodoApp {
 
     this.tasks = this.tasks.map(task => 
       task.id === index 
-        ? {...task, done: true}
+        ? {...task, done: !task.done}
         : task 
     )
 
     const task = this.findById(index)
+    if (!task) {
+      console.log("⚠️ Task not found.");
+      return;
+    }
     const status = task.done ? "finished" : "Not finished";
     console.log(`🔄 Task "${task.text}" marked ${status}.`);
     this.listTasks();
@@ -48,6 +52,10 @@ class TodoApp {
     }
 
     const task = this.findById(index)
+    if (!task) {
+      console.log("⚠️ Task not found.");
+      return;
+    }
     this.tasks = this.tasks.filter(task => task.id !== index)// delete
 
     console.log(`🗑️ Task "${task.text}" deleted.`);
